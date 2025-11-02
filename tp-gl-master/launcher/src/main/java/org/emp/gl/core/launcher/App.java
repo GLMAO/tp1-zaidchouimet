@@ -1,21 +1,23 @@
 package org.emp.gl.core.launcher;
 
 import org.emp.gl.clients.Horloge;
-import org.emp.gl.clients.CompteARebours;
+import org.emp.gl.clients.HorlogeGUI;
 import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
+import org.emp.gl.timer.service.TimerService;
 
 public class App {
     public static void main(String[] args) throws InterruptedException {
+        TimerService timer = new DummyTimeServiceImpl();
 
-        DummyTimeServiceImpl timer = new DummyTimeServiceImpl();
-
-        Horloge h1 = new Horloge("Num 1");
+        // 🕒 Horloge console
+        Horloge h1 = new Horloge("Console Clock");
         h1.setTimerService(timer);
 
-        new CompteARebours(5, timer);
-        new CompteARebours(8, timer);
-        new CompteARebours(12, timer);
+        // 🖥️ Horloge graphique (fenêtre Swing)
+        new HorlogeGUI(timer);
 
-        Thread.sleep(15000); // attendre un peu avant d'arrêter
+        // laisser tourner 15 secondes
+        Thread.sleep(15000);
+        System.exit(0);
     }
 }
